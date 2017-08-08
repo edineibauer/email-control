@@ -27,7 +27,7 @@ class Email{
     private $nomeRemetente;
 
     /** CONSTROLE */
-    private $Result;
+    private $result;
 
     public function __construct()
     {
@@ -104,6 +104,15 @@ class Email{
         $this->anexo[$file] = $name;
     }
 
+    /**
+     * <b>Verificar Envio:</b> Executando um getResult é possível verificar se foi ou não efetuado
+     * o envio do e-mail. Para mensagens execute o getError();
+     * @return BOOL $Result = TRUE or FALSE
+     */
+    public function getResult() {
+        return $this->result;
+    }
+
     public function enviar($emailDestino = null) {
         if($emailDestino) {
             $this->email = $emailDestino;
@@ -123,8 +132,14 @@ class Email{
         $param = $this->checkAnexo($param);
 
         $mg = Mailgun::create(MAILGUNKEY);
-        $mg->messages()->send(MAILGUNDOMAIN, $param);
+        $this->result = $mg->messages()->send(MAILGUNDOMAIN, $param);
     }
+
+    /*
+     * ***************************************
+     * **********  PRIVATE METHODS  **********
+     * ***************************************
+     */
 
     private function checkAnexo($param)
     {
@@ -138,21 +153,6 @@ class Email{
 
         return $param;
     }
-
-    /**
-     * <b>Verificar Envio:</b> Executando um getResult é possível verificar se foi ou não efetuado
-     * o envio do e-mail. Para mensagens execute o getError();
-     * @return BOOL $Result = TRUE or FALSE
-     */
-    public function getResult() {
-        return $this->Result;
-    }
-
-    /*
-     * ***************************************
-     * **********  PRIVATE METHODS  **********
-     * ***************************************
-     */
 
     //Limpa código e espaços!
     private function Clear() {
