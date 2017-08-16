@@ -2,6 +2,7 @@
   "name": "conn/email-control",
   "description": "Controle de Email, Envio de Email, Templates de Email",
   "type": "library",
+  "version": "1.0",
   "license": "MIT",
   "minimum-stability": "dev",
   "authors": [
