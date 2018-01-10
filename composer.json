@@ -14,7 +14,8 @@
     "conn/helpers": "^1",
     "mailgun/mailgun-php": "^2.3",
     "guzzlehttp/psr7": "^1.4",
-    "php-http/curl-client": "^1.7"
+    "php-http/curl-client": "^1.7",
+    "smarty/smarty": "~3"
   },
   "autoload": {
     "psr-0": {
