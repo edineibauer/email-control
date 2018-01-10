@@ -182,8 +182,6 @@ class Email
 
             $mg = Mailgun::create($this->mailGunApi);
             $this->result = $mg->messages()->send($this->mailGunDomain, $param);
-
-            $this->result = $this->result['message'] === "Queued. Thank you.";
         }
     }
 
