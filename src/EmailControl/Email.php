@@ -40,7 +40,7 @@ class Email
             $this->setLibrary($library);
         $this->nomeRemetente = "Contato" . defined('SITENAME') ? " " . SITENAME : "";
         $this->emailRemetente = defined('EMAIL') ? EMAIL : "contato@ontab.com.br";
-        $this->mailGunApi = defined('MAILGUNKEY') ? MAILGUNKEY : "key-0786754334d08fedfd9317e7b2298359";
+        $this->mailGunApi = defined('MAILGUNKEY') ? MAILGUNKEY : null;
         $this->mailGunDomain = defined('MAILGUNDOMAIN') ? MAILGUNDOMAIN : "ontab.com.br";
     }
 
@@ -169,20 +169,22 @@ class Email
 
     private function sendEmail()
     {
-        $param = [
-            'from' => "{$this->nomeRemetente} <{$this->emailRemetente}>",
-            'to' => $this->email,
-            'subject' => $this->assunto,
-            'text' => $this->mensagem,
-            'html' => $this->html
-        ];
+        if($this->mailGunApi) {
+            $param = [
+                'from' => "{$this->nomeRemetente} <{$this->emailRemetente}>",
+                'to' => $this->email,
+                'subject' => $this->assunto,
+                'text' => $this->mensagem,
+                'html' => $this->html
+            ];
 
-        $param = $this->checkAnexo($param);
+            $param = $this->checkAnexo($param);
 
-        $mg = Mailgun::create($this->mailGunApi);
-        $this->result = $mg->messages()->send($this->mailGunDomain, $param);
+            $mg = Mailgun::create($this->mailGunApi);
+            $this->result = $mg->messages()->send($this->mailGunDomain, $param);
 
-        $this->result = $this->result['message'] === "Queued. Thank you.";
+            $this->result = $this->result['message'] === "Queued. Thank you.";
+        }
     }
 
     /**
