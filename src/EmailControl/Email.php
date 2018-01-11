@@ -281,8 +281,6 @@ class Email
         $data['nome'] = $data['nome'] ?? $this->nome;
         $data['footerColor'] = $data['footerColor'] ?? "dddddd";
         $data['headerColor'] = $data['headerColor'] ?? "70bbd9";
-        $data['twitter'] = $data['twitter'] ?? "";
-        $data['facebook'] = $data['facebook'] ?? "";
 
         if ($data)
             $this->preDataClass($data);
