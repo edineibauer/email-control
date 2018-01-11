@@ -16,7 +16,7 @@
                 <tr>
                     {$email_header}
                 </tr>
-                <tr>
+                <tr style="padding: 10px 30px 0px 30px">
                     {$email_content}
                 </tr>
                 <tr>
