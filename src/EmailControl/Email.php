@@ -148,6 +148,7 @@ class Email
      */
     public function enviar($email = null)
     {
+        if(!$this->data) $this->data = $this->preData([]);
         $tpl = new Template($this->library);
         $this->data['email_header'] = $tpl->getShow("model/header", $this->data);
         $this->data['email_footer'] = $tpl->getShow("model/footer", $this->data);
@@ -161,7 +162,7 @@ class Email
                 $this->data['email_content'] = $tpl->getShow($this->template, $this->data);
             }
         } else {
-            $this->data['email_content'] = $this->mensagem;
+            $this->data['email_content'] = $tpl->getShow("model/container", $this->data);
         }
 
         $this->html = $tpl->getShow("model/base", $this->data);
