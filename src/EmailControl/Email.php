@@ -113,14 +113,6 @@ class Email
     }
 
     /**
-     * @param mixed $html
-     */
-    public function setHtml($html)
-    {
-        $this->html = $html;
-    }
-
-    /**
      * @param mixed $emailRemetente
      */
     public function setRemetenteEmail($emailRemetente)
@@ -160,12 +152,16 @@ class Email
         $this->data['email_header'] = $tpl->getShow("model/header", $this->data);
         $this->data['email_footer'] = $tpl->getShow("model/footer", $this->data);
 
-        if($this->folder) {
-            $tpl->setFolder($this->folder);
-            $this->data['email_content'] = $tpl->getShow($this->template, $this->data);
-            $tpl->setFolder(null);
+        if($this->template) {
+            if ($this->folder) {
+                $tpl->setFolder($this->folder);
+                $this->data['email_content'] = $tpl->getShow($this->template, $this->data);
+                $tpl->setFolder(null);
+            } else {
+                $this->data['email_content'] = $tpl->getShow($this->template, $this->data);
+            }
         } else {
-            $this->data['email_content'] = $tpl->getShow($this->template, $this->data);
+            $this->data['email_content'] = $this->mensagem;
         }
 
         $this->html = $tpl->getShow("model/base", $this->data);
