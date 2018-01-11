@@ -28,6 +28,7 @@ class Email
     private $mailGunApi;
     private $mailGunDomain;
     private $library = "email-control";
+    private $folder;
     private $template;
     private $data;
 
@@ -53,6 +54,14 @@ class Email
         $this->template = $template;
         if ($data && is_array($data))
             $this->setData($data);
+    }
+
+    /**
+     * @param mixed $folder
+     */
+    public function setFolder($folder)
+    {
+        $this->folder = $folder;
     }
 
     /**
@@ -150,7 +159,15 @@ class Email
         $tpl = new Template($this->library);
         $this->data['email_header'] = $tpl->getShow("model/header", $this->data);
         $this->data['email_footer'] = $tpl->getShow("model/footer", $this->data);
-        $this->data['email_content'] = $tpl->getShow($this->template, $this->data);
+
+        if($this->folder) {
+            $tpl->setFolder($this->folder);
+            $this->data['email_content'] = $tpl->getShow($this->template, $this->data);
+            $tpl->setFolder(null);
+        } else {
+            $this->data['email_content'] = $tpl->getShow($this->template, $this->data);
+        }
+
         $this->html = $tpl->getShow("model/base", $this->data);
 
         $this->clear();
