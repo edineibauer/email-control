@@ -14,7 +14,7 @@
 
             <br/>
             <p align="center">
-                <a href="{$home}recuperacao/{$token_recovery}" style="cursor:pointer; text-decoration: none" target="_blank">
+                <a href="{$home}inserir-nova-senha/{$token_recovery}" style="cursor:pointer; text-decoration: none" target="_blank">
                     <button bgcolor="#DDDDDD" style="border: 1px solid #999999; outline: none;">
                         <br/>
                         Redefinir Senha
