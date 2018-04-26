@@ -11,7 +11,7 @@
   ],
   "require": {
     "php": "^7.0",
-    "conn/helpers": "^1",
+    "conn/helpers": "dev-master",
     "mailgun/mailgun-php": "^2.3",
     "guzzlehttp/psr7": "^1.4",
     "php-http/curl-client": "^1.7",
