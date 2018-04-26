@@ -3,6 +3,8 @@
   "description": "Controle de Email, Envio de Email, Templates de Email",
   "type": "library",
   "license": "MIT",
+  "prefer-stable" : true,
+  "minimum-stability": "dev",
   "authors": [
     {
       "name": "Edinei J. Bauer",
