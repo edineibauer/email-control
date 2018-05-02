@@ -42,7 +42,7 @@ class Email
         $this->nomeRemetente = "Contato" . defined('SITENAME') ? " " . SITENAME : "";
         $this->emailRemetente = defined('EMAIL') ? EMAIL : "contato@ontab.com.br";
         $this->mailGunApi = defined('MAILGUNKEY') ? MAILGUNKEY : null;
-        $this->mailGunDomain = defined('MAILGUNDOMAIN') ? MAILGUNDOMAIN : "ontab.com.br";
+        $this->mailGunDomain = defined('MAILGUNDOMAIN') ? MAILGUNDOMAIN : (defined('EMAIL') && !empty(EMAIL) ? explode('@', EMAIL)[1] : "ontab.com.br");
     }
 
     /**
