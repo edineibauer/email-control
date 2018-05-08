@@ -267,6 +267,8 @@ class Email
         if ($this->template)
             $data = $this->preDataTemplate($data);
 
+        list($color, $background) = $this->getColorDefault();
+
         $data['assunto'] = $data['assunto'] ?? $this->assunto;
         $data['title'] = $data['title'] ?? $data['assunto'];
         $data['mensagem'] = $data['mensagem'] ?? $this->mensagem;
@@ -277,12 +279,27 @@ class Email
         $data['email'] = $data['email'] ?? $this->email;
         $data['nome'] = $data['nome'] ?? $this->nome;
         $data['footerColor'] = $data['footerColor'] ?? "dddddd";
-        $data['headerColor'] = $data['headerColor'] ?? "70bbd9";
+        $data['headerColor'] = $data['headerTextColor'] ?? $color;
+        $data['headerColor'] = $data['headerColor'] ?? $background;
 
         if ($data)
             $this->preDataClass($data);
 
         return $data;
+    }
+
+    private function getColorDefault()
+    {
+        $assets = DEV ? "assetsPublic" : "assets";
+        if(file_exists(PATH_HOME . "{$assets}/theme/theme.css")) {
+            $theme = file_get_contents(PATH_HOME . "{$assets}/theme/theme.css");
+            $theme = explode('.theme {', $theme)[1];
+            $color = trim(explode('!important', explode('color:', $theme)[1])[0]);
+            $backgroun = trim(explode('!important', explode('background-color:', $theme)[1])[0]);
+            return [$color, $backgroun];
+        }
+
+        return ["#111", "70bbd9"];
     }
 
     /**
