@@ -1,9 +1,9 @@
-<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#{$footerColor}" style="padding: 30px 30px 30px 30px;">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#{$footerColor}" style="padding: 20px 30px 20px 30px;">
     <tr>
         <td width="75%">
             &reg; {$sitename}, {$date}<br/><br/>
-            <a href="{$home}email/subscribe/{$email}" target="_blank" style="color: #999999; text-decoration: none">
-                Remover inscrição
+            <a href="{$home}unsubscribeEmail/{$email}" target="_blank" style="color: #999999; text-decoration: none;font-size:11px">
+                remover inscrição
             </a>
         </td>
         <td align="right">
