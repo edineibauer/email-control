@@ -1,4 +1,4 @@
-<td align="center" bgcolor="#{$headerBackground}" style="padding: 40px 0 30px 0;">
+<td align="center" bgcolor="{$headerBackground}" style="padding: 40px 0 30px 0;">
     {if $logo != ""}
         <img src="{$logo}" height="70" style="height: 70px; padding:20px">
     {else}
