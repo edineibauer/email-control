@@ -205,7 +205,7 @@ class EmailSparkPost
                 $mail->Username = 'SMTP_Injection';
                 $mail->Password = $this->serverPassword;
                 $mail->SMTPSecure = 'STARTTLS';
-                $mail->Port = 587;
+                $mail->Port = 2525;
 
                 //Set Destinatário(s)
                 if ($email) {
