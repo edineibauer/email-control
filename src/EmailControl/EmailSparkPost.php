@@ -223,7 +223,7 @@ class EmailSparkPost
                 }
 
                 //Remetente
-                $mail->setFrom($this->emailServer, $this->remetenteNome);
+                $mail->setFrom($this->serverEmail, $this->remetenteNome);
 
                 //Envio de uma cópia do email (para teste dev)
                 if ($this->copyToEmail)
