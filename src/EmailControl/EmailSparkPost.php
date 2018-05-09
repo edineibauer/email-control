@@ -23,7 +23,8 @@ class EmailSparkPost
     private $destinatarioEmail;
     private $anexo;
     private $data;
-    private $emailServer;
+    private $serverEmail;
+    private $serverPassword;
     private $remetenteEmail;
     private $remetenteNome;
     private $replyToEmail;
@@ -37,7 +38,7 @@ class EmailSparkPost
     public function __construct()
     {
         $this->remetenteNome = "Contato" . defined('SITENAME') ? " " . SITENAME : "";
-        $this->emailServer = defined('EMAIL') ? EMAIL : "contato@uebster.com";
+        $this->serverEmail = defined('EMAIL') ? EMAIL : "contato@uebster.com";
         $this->assunto = "Contato através do site " . SITENAME;
         $this->mensagem = "";
         $this->html = "";
@@ -88,11 +89,19 @@ class EmailSparkPost
     }
 
     /**
-     * @param mixed $emailServer
+     * @param mixed $serverEmail
      */
-    public function setEmailServer($emailServer)
+    public function setServerEmail($serverEmail)
     {
-        $this->emailServer = $emailServer;
+        $this->serverEmail = $serverEmail;
+    }
+
+    /**
+     * @param mixed $serverPassword
+     */
+    public function setServerPassword($serverPassword)
+    {
+        $this->serverPassword = $serverPassword;
     }
 
     /**
@@ -187,13 +196,14 @@ class EmailSparkPost
     {
         if (defined("EMAILKEY") && !empty(EMAILKEY) && (!empty($this->mensagem) || !empty($this->template) || !empty($this->html))) {
             try {
+                $this->serverPassword = $this->serverPassword ?? EMAILKEY;
                 $mail = new PHPMailer(true); // Passing `true` enables exceptions
                 $mail->isSMTP();
                 $mail->isHTML(true);
                 $mail->Host = 'smtp.sparkpostmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'SMTP_Injection';
-                $mail->Password = EMAILKEY;
+                $mail->Password = $this->serverPassword;
                 $mail->SMTPSecure = 'STARTTLS';
                 $mail->Port = 587;
 
