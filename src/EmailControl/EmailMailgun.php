@@ -12,7 +12,7 @@ namespace EmailControl;
 use Helpers\Template;
 use Mailgun\Mailgun;
 
-class Email
+class EmailMailgun
 {
 
     /** CORPO DO E-MAIL */
