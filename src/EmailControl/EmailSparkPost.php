@@ -23,6 +23,7 @@ class EmailSparkPost
     private $destinatarioEmail;
     private $anexo;
     private $data;
+    private $emailServer;
     private $remetenteEmail;
     private $remetenteNome;
     private $replyToEmail;
@@ -36,7 +37,7 @@ class EmailSparkPost
     public function __construct()
     {
         $this->remetenteNome = "Contato" . defined('SITENAME') ? " " . SITENAME : "";
-        $this->remetenteEmail = defined('EMAIL') ? EMAIL : "contato@uebster.com";
+        $this->emailServer = defined('EMAIL') ? EMAIL : "contato@uebster.com";
         $this->assunto = "Contato através do site " . SITENAME;
         $this->mensagem = "";
         $this->html = "";
@@ -84,6 +85,14 @@ class EmailSparkPost
     public function setMensagem(string $mensagem)
     {
         $this->mensagem = trim(strip_tags($mensagem));
+    }
+
+    /**
+     * @param mixed $emailServer
+     */
+    public function setEmailServer($emailServer)
+    {
+        $this->emailServer = $emailServer;
     }
 
     /**
@@ -204,7 +213,7 @@ class EmailSparkPost
                 }
 
                 //Remetente
-                $mail->setFrom($this->remetenteEmail, $this->remetenteNome);
+                $mail->setFrom($this->emailServer, $this->remetenteNome);
 
                 //Envio de uma cópia do email (para teste dev)
                 if ($this->copyToEmail)
