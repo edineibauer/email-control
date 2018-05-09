@@ -22,6 +22,7 @@ class EmailSparkPost
     private $destinatarioNome;
     private $destinatarioEmail;
     private $anexo;
+    private $data;
     private $remetenteEmail;
     private $remetenteNome;
     private $replyToEmail;
@@ -44,10 +45,21 @@ class EmailSparkPost
 
     /**
      * @param string $template
+     * @param array $data
      */
-    public function setTemplate(string $template)
+    public function setTemplate(string $template, array $data = [])
     {
         $this->template = trim(strip_tags($template));
+        if($data)
+            $this->data = $data;
+    }
+
+    /**
+     * @param mixed $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
     }
 
     /**
@@ -254,9 +266,8 @@ class EmailSparkPost
                 break;
         }
 
-        $data = $this->getData();
         $tpl = new Template($this->library ?? "email-control");
-        return $tpl->getShow($template, $data);
+        return $tpl->getShow($template, $this->getData());
     }
 
     /**
@@ -282,7 +293,7 @@ class EmailSparkPost
     {
         list($color, $background) = $this->getColorTheme();
         $date = new DateTime();
-        return [
+        $data = [
             "assunto" => $this->assunto,
             "mensagem" => $this->mensagem,
             "email" => $this->destinatarioEmail,
@@ -300,6 +311,8 @@ class EmailSparkPost
             "headerColor" => $color,
             "headerBackground" => $background
         ];
+
+        return !empty($this->data) ? array_merge($this->data, $data) : $data;
     }
 
     /**
