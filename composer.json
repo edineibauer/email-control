@@ -15,9 +15,6 @@
     "php": "^7.0",
     "conn/helpers": "dev-master",
     "phpmailer/phpmailer": "dev-master",
-    "mailgun/mailgun-php": "^2.3",
-    "guzzlehttp/psr7": "^1.4",
-    "php-http/curl-client": "^1.7",
     "smarty/smarty": "~3"
   },
   "autoload": {
