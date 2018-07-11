@@ -11,8 +11,6 @@ namespace EmailControl;
 
 use Helpers\DateTime;
 use Helpers\Template;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 class EmailSparkPost
 {
@@ -37,9 +35,9 @@ class EmailSparkPost
 
     public function __construct()
     {
-        $this->remetenteNome = "Contato" . defined('SITENAME') ? " " . SITENAME : "";
+        $this->remetenteNome = "Contato" . (defined('SITENAME') ? " " . SITENAME : "");
         $this->serverEmail = defined('EMAIL') ? EMAIL : "contato@uebster.com";
-        $this->assunto = "Contato através do site " . SITENAME;
+        $this->assunto = "Contato através do site " . (defined('SITENAME') ? SITENAME : "");
         $this->mensagem = "";
         $this->html = "";
         $this->destinatarioNome = "";
@@ -319,12 +317,12 @@ class EmailSparkPost
             "nome" => $this->destinatarioNome,
             "remetente" => $this->remetenteEmail,
             "remetenteNome" => $this->remetenteNome,
-            "sitename" => SITENAME,
-            "home" => HOME,
-            "sitedesc" => SITEDESC,
-            "sitesub" => SITESUB,
-            "logo" => HOME . LOGO,
-            "favicon" => HOME . FAVICON,
+            "sitename" => defined('SITENAME') ? SITENAME : "",
+            "home" => defined('HOME') ? HOME : "",
+            "sitedesc" => defined('SITEDESC') ? SITEDESC : "",
+            "sitesub" => defined('SITESUB') ? SITESUB : "",
+            "logo" => defined('LOGO') ? HOME . LOGO : "",
+            "favicon" => defined('FAVICON') ? HOME . FAVICON : "",
             "date" => $date->getDateTime(date("Y-m-d H:i:s"), 'd/m/Y H:i'),
             "footerColor" => "dddddd",
             "headerColor" => $color,
@@ -347,7 +345,7 @@ class EmailSparkPost
 
     private function getColorTheme()
     {
-        $assets = DEV ? "assetsPublic" : "assets";
+        $assets = defined('DEV') && DEV ? "assetsPublic" : "assets";
         if (file_exists(PATH_HOME . "{$assets}/theme/theme.css")) {
             $theme = file_get_contents(PATH_HOME . "{$assets}/theme/theme.css");
             $theme = explode('.theme {', $theme)[1];
