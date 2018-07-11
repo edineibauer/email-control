@@ -11,8 +11,9 @@ namespace EmailControl;
 
 use Helpers\DateTime;
 use Helpers\Template;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+use SparkPost\SparkPost;
+use GuzzleHttp\Client;
+use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
 
 class EmailSparkPost
 {
@@ -86,6 +87,8 @@ class EmailSparkPost
     public function setMensagem(string $mensagem)
     {
         $this->mensagem = trim(strip_tags($mensagem));
+        if(empty($this->html))
+            $this->html = $this->mensagem;
     }
 
     /**
@@ -196,67 +199,37 @@ class EmailSparkPost
     {
         if (defined("EMAILKEY") && !empty(EMAILKEY) && (!empty($this->mensagem) || !empty($this->template) || !empty($this->html))) {
             try {
-                $this->serverPassword = $this->serverPassword ?? EMAILKEY;
-                $mail = new PHPMailer(true); // Passing `true` enables exceptions
-                $mail->isSMTP();
-                $mail->isHTML(true);
-                $mail->Host = 'smtp.sparkpostmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'SMTP_Injection';
-                $mail->Password = $this->serverPassword;
-                $mail->SMTPSecure = 'STARTTLS';
-                $mail->Port = 2525;
 
-                //Set Destinatário(s)
-                if ($email) {
-                    if (is_array($email)) {
-                        foreach ($email as $m)
-                            $mail->addAddress($m, $this->prepareNameFromEmail($m));
+                $this->html = !empty($this->html) ? $this->html : (!empty($this->template) ? $this->getTemplateData($this->template) : $this->turnMensagemIntoEmail());
 
-                    } elseif (is_string($email)) {
-                        $mail->addAddress($email, $this->prepareNameFromEmail($email));
-                    }
-                } elseif (!empty($this->destinatarioEmail)) {
-                    $mail->addAddress($this->destinatarioEmail, (!empty($this->destinatarioNome) ? $this->destinatarioNome : $this->prepareNameFromEmail($this->destinatarioEmail)));
-                } else {
-                    $this->result = "Email de destino não informado";
-                }
+                $httpClient = new GuzzleAdapter(new Client());
+                $sparky = new SparkPost($httpClient, ['key' => EMAILKEY]);
+                $sparky->setOptions(['async' => false]);
 
-                //Remetente
-                $mail->setFrom($this->serverEmail, $this->remetenteNome);
-
-                //Envio de uma cópia do email (para teste dev)
-                if ($this->copyToEmail)
-                    $mail->addCC($this->copyToEmail, (!empty($this->copyToNome) ? $this->copyToNome : $this->prepareNameFromEmail($this->copyToEmail)));
-
-                //Retornar email para o endereço específico
-                if ($this->replyToEmail)
-                    $mail->addReplyTo($this->replyToEmail, (!empty($this->replyToNome) ? $this->replyToNome : $this->prepareNameFromEmail($this->remetenteEmail)));
-                else
-                    $mail->addReplyTo($this->remetenteEmail, (!empty($this->remetenteNome) ? $this->remetenteNome : $this->prepareNameFromEmail($this->remetenteEmail)));
-
-                //Mensagem
-                if(!empty($this->html))
-                    $mail->Body = $this->html;
-                elseif(!empty($this->template))
-                    $mail->Body = $this->getTemplateData($this->template);
-                else
-                    $mail->Body = $this->turnMensagemIntoEmail();
-
-                $mail->Subject = $this->assunto;
-                $mail->AltBody = $this->mensagem;
-
-                //Anexos (caminho completo do arquivo (com PATH_HOME))
-                if($this->anexo) {
-                    foreach ($this->anexo as $anexo) {
-                        $nomeAnexo = (preg_match("\/", $anexo) ? ucwords(str_replace(['.', '_', '-'], ' ', explode('.', explode('/', $anexo)[1])[0])) : $anexo);
-                        $mail->addAttachment($anexo, $nomeAnexo);
+                $listaEmails[] = ['address' => ['name' => $this->destinatarioNome, 'email' => $this->destinatarioEmail]];
+                if($email){
+                    foreach ($email as $item) {
+                        if(is_array($item) && !empty($item['email']))
+                            $listaEmails[] = ['address' => ['name' => (!empty($item['name']) ? $item['name'] : ""), 'email' => $item['email']]];
+                        elseif(is_string($item))
+                            $listaEmails[] = ['address' => ['email' => $item]];
                     }
                 }
-                $mail->send();
+
+                $results = $sparky->transmissions->post([
+                    'options' => [
+                        'sandbox' => false
+                    ],
+                    'content' => [
+                        'from' => $this->remetenteEmail,
+                        'subject' => $this->assunto,
+                        'html' => $this->html
+                    ],
+                    'recipients' => $listaEmails
+                ]);
 
             } catch (\Exception $e) {
-                $this->result = 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+                $this->result = 'Erro ao enviar';
             }
         } else {
             if(defined("EMAILKEY") && !empty(EMAILKEY))

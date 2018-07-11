@@ -14,8 +14,10 @@
   "require": {
     "php": "^7.0",
     "conn/helpers": "dev-master",
-    "phpmailer/phpmailer": "dev-master",
-    "smarty/smarty": "~3"
+    "smarty/smarty": "~3",
+    "guzzlehttp/guzzle": "^6.3",
+    "php-http/guzzle6-adapter": "^1.1",
+    "sparkpost/sparkpost": "^2.1"
   },
   "autoload": {
     "psr-0": {
