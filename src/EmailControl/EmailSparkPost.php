@@ -9,6 +9,7 @@
 
 namespace EmailControl;
 
+use Helpers\Check;
 use Helpers\DateTime;
 use Helpers\Template;
 use SparkPost\SparkPost;
@@ -53,7 +54,7 @@ class EmailSparkPost
     public function setTemplate(string $template, array $data = [])
     {
         $this->template = trim(strip_tags($template));
-        if($data)
+        if ($data)
             $this->data = $data;
     }
 
@@ -87,7 +88,7 @@ class EmailSparkPost
     public function setMensagem(string $mensagem)
     {
         $this->mensagem = trim(strip_tags($mensagem));
-        if(empty($this->html))
+        if (empty($this->html))
             $this->html = $this->mensagem;
     }
 
@@ -207,19 +208,20 @@ class EmailSparkPost
                 $sparky->setOptions(['async' => false]);
 
                 $listaEmails[] = ['address' => ['name' => $this->destinatarioNome, 'email' => $this->destinatarioEmail]];
-                if($email){
-                    foreach ($email as $item) {
-                        if(is_array($item) && !empty($item['email']))
-                            $listaEmails[] = ['address' => ['name' => (!empty($item['name']) ? $item['name'] : ""), 'email' => $item['email']]];
-                        elseif(is_string($item))
-                            $listaEmails[] = ['address' => ['email' => $item]];
+                if (!empty($email)) {
+                    if (is_array($email)) {
+                        foreach ($email as $item) {
+                            if (is_array($item) && !empty($item['email']) && Check::email($item['email']))
+                                $listaEmails[] = ['address' => ['name' => (!empty($item['name']) ? $item['name'] : ""), 'email' => $item['email']]];
+                            elseif (is_string($item) && Check::email($item))
+                                $listaEmails[] = ['address' => ['email' => $item]];
+                        }
+                    } elseif (is_string($email) && Check::email($email)) {
+                        $listaEmails[] = ['address' => ['email' => $email]];
                     }
                 }
 
                 $results = $sparky->transmissions->post([
-                    'options' => [
-                        'sandbox' => false
-                    ],
                     'content' => [
                         'from' => $this->remetenteEmail,
                         'subject' => $this->assunto,
@@ -232,7 +234,7 @@ class EmailSparkPost
                 $this->result = 'Erro ao enviar';
             }
         } else {
-            if(defined("EMAILKEY") && !empty(EMAILKEY))
+            if (defined("EMAILKEY") && !empty(EMAILKEY))
                 $this->result = "Conteúdo do email não definido, informe uma mensagem ou template pré-definido";
             else
                 $this->result = "Key de SparkPost não informado nas configurações.";
