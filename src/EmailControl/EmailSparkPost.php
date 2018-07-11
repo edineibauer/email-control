@@ -11,6 +11,8 @@ namespace EmailControl;
 
 use Helpers\DateTime;
 use Helpers\Template;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class EmailSparkPost
 {
