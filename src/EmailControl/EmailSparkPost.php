@@ -41,6 +41,7 @@ class EmailSparkPost
     {
         $this->remetenteNome = "Contato" . (defined('SITENAME') ? " " . SITENAME : "");
         $this->serverEmail = defined('EMAIL') ? EMAIL : "contato@uebster.com";
+        $this->setRemetenteEmail($this->serverEmail);
         $this->assunto = "Contato através do site " . (defined('SITENAME') ? SITENAME : "");
         $this->mensagem = "";
         $this->html = "";
@@ -223,7 +224,7 @@ class EmailSparkPost
 
                 $results = $sparky->transmissions->post([
                     'content' => [
-                        'from' => $this->remetenteEmail,
+                        'from' => ['name' => $this->remetenteNome, 'email' => $this->remetenteEmail],
                         'subject' => $this->assunto,
                         'html' => $this->html
                     ],
