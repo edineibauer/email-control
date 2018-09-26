@@ -3,8 +3,6 @@
   "description": "Controle de Email, Envio de Email, Templates de Email",
   "type": "library",
   "license": "MIT",
-  "prefer-stable" : true,
-  "minimum-stability": "dev",
   "authors": [
     {
       "name": "Edinei J. Bauer",
@@ -12,9 +10,8 @@
     }
   ],
   "require": {
-    "php": "^7.0",
-    "conn/helpers": "dev-master",
-    "smarty/smarty": "~3",
+    "php": "^7.2",
+    "conn/helpers": "1.5.*",
     "guzzlehttp/guzzle": "^6.3",
     "php-http/guzzle6-adapter": "^1.1",
     "sparkpost/sparkpost": "^2.1"
