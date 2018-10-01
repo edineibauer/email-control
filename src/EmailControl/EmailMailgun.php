@@ -290,9 +290,8 @@ class EmailMailgun
 
     private function getColorDefault()
     {
-        $assets = DEV ? "assetsPublic" : "assets";
-        if(file_exists(PATH_HOME . "{$assets}/theme/theme.css")) {
-            $theme = file_get_contents(PATH_HOME . "{$assets}/theme/theme.css");
+        if(file_exists(PATH_HOME . "assetsPublic/theme/theme.css")) {
+            $theme = file_get_contents(PATH_HOME . "assetsPublic/theme/theme.css");
             $theme = explode('.theme {', $theme)[1];
             $color = trim(explode('!important', explode('color:', $theme)[1])[0]);
             $backgroun = trim(explode('!important', explode('background-color:', $theme)[1])[0]);
