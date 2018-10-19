@@ -46,6 +46,7 @@ class EmailSparkPost
         $this->mensagem = "";
         $this->html = "";
         $this->destinatarioNome = "";
+        $this->destinatarioEmail = [];
     }
 
     /**
@@ -118,11 +119,41 @@ class EmailSparkPost
     }
 
     /**
-     * @param string $email
+     * @param string|array $email
      */
-    public function setDestinatarioEmail(string $email)
+    public function setDestinatarioEmail($email)
     {
-        $this->destinatarioEmail = trim(strip_tags($email));
+        if (!empty($email)) {
+            if (is_array($email)) {
+                if(isset($email['email'])){
+                    if (!empty($email['name'])) {
+                        $this->destinatarioEmail[] = ['address' => [
+                            'name' => trim(strip_tags($email['name'])),
+                            'email' => trim($email['email'])
+                        ]];
+                    } else {
+                        $this->destinatarioEmail[] = ['address' => ['name' => $this->prepareNameFromEmail($email['email']), 'email' => trim($email['email'])]];
+                    }
+                } else {
+                    foreach ($email as $item) {
+                        if (is_array($item) && !empty($item['email']) && Check::email($item['email'])) {
+                            if (!empty($item['name'])) {
+                                $this->destinatarioEmail[] = ['address' => [
+                                    'name' => trim(strip_tags($item['name'])),
+                                    'email' => trim(strip_tags($item['email']))
+                                ]];
+                            } else {
+                                $this->destinatarioEmail[] = ['address' => ['email' => trim($item['email'])]];
+                            }
+                        } elseif (is_string($item) && Check::email($item)) {
+                            $this->destinatarioEmail[] = ['address' => ['name' => $this->prepareNameFromEmail($item), 'email' => trim($item)]];
+                        }
+                    }
+                }
+            } elseif (is_string($email) && Check::email($email)) {
+                $this->destinatarioEmail[] = ['address' => ['name' => $this->prepareNameFromEmail($email), 'email' => trim($email)]];
+            }
+        }
     }
 
     /**
@@ -201,6 +232,8 @@ class EmailSparkPost
     {
         if (defined("EMAILKEY") && !empty(EMAILKEY) && (!empty($this->mensagem) || !empty($this->template) || !empty($this->html))) {
             try {
+                if (!empty($email))
+                    $this->setDestinatarioEmail(!empty($this->destinatarioNome) ? ['name' => $this->destinatarioNome, 'email' => $email] : $email);
 
                 $this->html = !empty($this->html) ? $this->html : (!empty($this->template) ? $this->getTemplateData($this->template) : $this->turnMensagemIntoEmail());
 
@@ -208,27 +241,13 @@ class EmailSparkPost
                 $sparky = new SparkPost($httpClient, ['key' => EMAILKEY]);
                 $sparky->setOptions(['async' => false]);
 
-                $listaEmails[] = ['address' => ['name' => $this->destinatarioNome, 'email' => $this->destinatarioEmail]];
-                if (!empty($email)) {
-                    if (is_array($email)) {
-                        foreach ($email as $item) {
-                            if (is_array($item) && !empty($item['email']) && Check::email($item['email']))
-                                $listaEmails[] = ['address' => ['name' => (!empty($item['name']) ? $item['name'] : ""), 'email' => $item['email']]];
-                            elseif (is_string($item) && Check::email($item))
-                                $listaEmails[] = ['address' => ['email' => $item]];
-                        }
-                    } elseif (is_string($email) && Check::email($email)) {
-                        $listaEmails[] = ['address' => ['email' => $email]];
-                    }
-                }
-
                 $results = $sparky->transmissions->post([
                     'content' => [
                         'from' => ['name' => $this->remetenteNome, 'email' => $this->remetenteEmail],
                         'subject' => $this->assunto,
                         'html' => $this->html
                     ],
-                    'recipients' => $listaEmails
+                    'recipients' => $this->destinatarioEmail
                 ]);
 
             } catch (\Exception $e) {
