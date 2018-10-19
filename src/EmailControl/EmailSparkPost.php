@@ -235,20 +235,22 @@ class EmailSparkPost
                 if (!empty($email))
                     $this->setDestinatarioEmail(!empty($this->destinatarioNome) ? ['name' => $this->destinatarioNome, 'email' => $email] : $email);
 
-                $this->html = !empty($this->html) ? $this->html : (!empty($this->template) ? $this->getTemplateData($this->template) : $this->turnMensagemIntoEmail());
+                if(!empty($this->destinatarioEmail)) {
+                    $this->html = !empty($this->html) ? $this->html : (!empty($this->template) ? $this->getTemplateData($this->template) : $this->turnMensagemIntoEmail());
 
-                $httpClient = new GuzzleAdapter(new Client());
-                $sparky = new SparkPost($httpClient, ['key' => EMAILKEY]);
-                $sparky->setOptions(['async' => false]);
+                    $httpClient = new GuzzleAdapter(new Client());
+                    $sparky = new SparkPost($httpClient, ['key' => EMAILKEY]);
+                    $sparky->setOptions(['async' => false]);
 
-                $results = $sparky->transmissions->post([
-                    'content' => [
-                        'from' => ['name' => $this->remetenteNome, 'email' => $this->remetenteEmail],
-                        'subject' => $this->assunto,
-                        'html' => $this->html
-                    ],
-                    'recipients' => $this->destinatarioEmail
-                ]);
+                    $results = $sparky->transmissions->post([
+                        'content' => [
+                            'from' => ['name' => $this->remetenteNome, 'email' => $this->remetenteEmail],
+                            'subject' => $this->assunto,
+                            'html' => $this->html
+                        ],
+                        'recipients' => $this->destinatarioEmail
+                    ]);
+                }
 
             } catch (\Exception $e) {
                 $this->result = 'Erro ao enviar';
