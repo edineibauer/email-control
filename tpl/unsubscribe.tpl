@@ -10,7 +10,7 @@
             <div class="row h-100">
                 <div class="col-12 my-auto">
                     <div class="masthead-content text-white py-5 py-md-0">
-                        <h2 class="mb-3">Peço <b>DESCULPAS</b> {(!empty($nome)) ? $nome : ""}</h2>
+                        <h2 class="mb-3"><b>DESCULPAS</b> {(!empty($nome)) ? $nome : ""}</h2>
                         <p class="mb-5">por enviar emails de forma não desejada, saiba que esse <strong>NÃO É</strong>
                             nosso objetivo!</p>
 
