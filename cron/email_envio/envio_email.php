@@ -17,7 +17,7 @@ if ($read->getResult()) {
             $emailSend->setAssunto($email['assunto']);
             $emailSend->setMensagem($email['mensagem']);
 
-            if(!empty($dados['nome_destinatario']))
+            if(!empty($email['nome_destinatario']))
                 $emailSend->setDestinatarioNome($email['nome_destinatario']);
 
             if (!empty($email['template']))

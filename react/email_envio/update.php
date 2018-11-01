@@ -11,7 +11,7 @@ if($dados['email_enviado'] == 0) {
         $emailSend->setMensagem($dados['mensagem']);
 
         if(!empty($dados['nome_destinatario']))
-            $emailSend->setDestinatarioNome($email['nome_destinatario']);
+            $emailSend->setDestinatarioNome($dados['nome_destinatario']);
 
         if (!empty($dados['template']))
             $emailSend->setTemplate($dados['template']);

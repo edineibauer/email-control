@@ -60,7 +60,7 @@
                 </tr>
                 <tr>
                     <td align="center" valign="top" id="m_5372895143664279880templateHeader"
-                        style="color:{$theme};background:rgba(0,0,0,0.4){if isset($background)} url(&quot;{$background}&quot;) no-repeat center/cover{/if};background-color:rgba(0,0,0,0.4);{if isset($background)}background-image:url({$background});background-repeat:no-repeat;background-position:center;background-size:cover;{/if}border-top:0;border-bottom:0;padding-top:80px;padding-bottom:40px">
+                        style="color:{$theme};background:rgba(0,0,0,0.4){if isset($background)} url(&quot;{$background}&quot;) no-repeat center/cover{/if};{if isset($background)}background-image:url({$background});background-repeat:no-repeat;background-position:center;background-size:cover;{/if}border-top:0;border-bottom:0;padding-top:80px;padding-bottom:40px">
 
                         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
                                class="m_5372895143664279880templateContainer"
@@ -155,7 +155,7 @@
                                                     class="m_5372895143664279880mcnButtonBlockInner">
                                                     <table border="0" cellpadding="0" cellspacing="0" width="100%"
                                                            class="m_5372895143664279880mcnButtonContentContainer"
-                                                           style="border-collapse:separate!important;border:1px solid rgba(255,255,255, 0.1);border-radius:2px;background-color:rgba(255,255,255, 0.1)">
+                                                           style="border-collapse:separate!important;border:1px solid rgba(255,255,255, 0.1);border-radius:2px;background-color:rgba(0,0,0, 0.2)">
                                                         <tbody>
                                                         <tr>
                                                             <td align="center" valign="middle"
