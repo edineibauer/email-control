@@ -4,7 +4,7 @@
     <tbody>
     <tr>
         <td align="center" valign="top" id="m_5372895143664279880bodyCell"
-            style="height:100%;margin:0;padding:0 0 30px 0;width:100%;border-top:0">
+            style="height:100%;margin:0;width:100%;border-top:0">
 
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
                 <tbody>
@@ -149,13 +149,11 @@
                                                class="m_5372895143664279880mcnButtonBlock"
                                                style="min-width:100%;border-collapse:collapse">
                                             <tbody class="m_5372895143664279880mcnButtonBlockOuter">
-                                            <tr>
-                                                <td style="padding-top:0;padding-right:18px;padding-bottom:18px;padding-left:18px"
-                                                    valign="top" align="center"
-                                                    class="m_5372895143664279880mcnButtonBlockInner">
+                                            <tr style="padding-top:0;padding-right:30px;padding-bottom:30px;padding-left:30px">
+                                                <td valign="top" align="center" class="m_5372895143664279880mcnButtonBlockInner" style="background: {$background}">
                                                     <table border="0" cellpadding="0" cellspacing="0" width="100%"
                                                            class="m_5372895143664279880mcnButtonContentContainer"
-                                                           style="border-collapse:separate!important;border:1px solid rgba(255,255,255, 0.1);border-radius:2px;background-color:rgba(0,0,0, 0.2)">
+                                                           style="border-collapse:separate!important;border:1px solid rgba(0,0,0, 0.4);border-radius:2px;background-color:rgba(0,0,0, 0.2)">
                                                         <tbody>
                                                         <tr>
                                                             <td align="center" valign="middle"

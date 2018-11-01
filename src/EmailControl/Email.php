@@ -164,7 +164,7 @@ class Email
     public function setAnexo(string $file)
     {
         $anexos = json_decode($file, true);
-        if(is_array($anexos)) {
+        if (is_array($anexos)) {
             foreach ($anexos as $anexo) {
                 $this->anexo[] = [
                     "name" => $anexo['name'],
@@ -224,6 +224,19 @@ class Email
         }
     }
 
+    /**
+     * Obtém o HTML do email
+     *
+     * @return string
+     */
+    public function getEmailContent(): string
+    {
+        if (!empty($this->assunto) && !empty($this->destinatarioEmail) && !empty($this->mensagem))
+            return $this->getTemplateHtml();
+
+        return "";
+    }
+
     /*
      * ***************************************
      * **********  PRIVATE METHODS  **********
@@ -247,7 +260,7 @@ class Email
                 'recipients' => $this->destinatarioEmail
             ]);
 
-            if($response->getStatusCode() === 200)
+            if ($response->getStatusCode() === 200)
                 $this->result = $response->getBody()['results']['id'];
             else
                 $this->error = $response->getStatusCode();

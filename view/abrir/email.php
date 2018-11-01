@@ -1,11 +1,13 @@
 <?php
 
-if($dados['email_enviado'] == 0) {
+if(!empty($route->getVar())){
+    $read = new \ConnCrud\Read();
+    $read->exeRead("email_envio", "WHERE id = :id", "id={$route->getVar()[0]}");
+    if($read->getResult()) {
 
-    $resultData["email_enviado"] = 1;
-    $emailSend = new \EmailControl\Email();
-    try {
+        $dados = $read->getResult()[0];
 
+        $emailSend = new \EmailControl\Email();
         $emailSend->setDestinatarioEmail($dados['email_destinatario']);
         $emailSend->setAssunto($dados['assunto']);
         $emailSend->setMensagem($dados['mensagem']);
@@ -27,18 +29,6 @@ if($dados['email_enviado'] == 0) {
             'link' => !empty($dados['link_do_botao']) ? $dados['link_do_botao'] : "",
         ]);
 
-        $emailSend->enviar();
-
-        if($emailSend->getResult())
-            $resultData['transmission_id'] = $emailSend->getResult();
-
-    } catch (Exception $e) {
-        $emailSend->setError($e->getMessage());
+        echo $emailSend->getEmailContent();
     }
-
-    if ($emailSend->getError())
-        $resultData["email_error"] = 1;
-
-    $up = new \ConnCrud\Update();
-    $up->exeUpdate("email_envio", $resultData, "WHERE id = :id", "id={$dados['id']}");
 }
