@@ -10,7 +10,7 @@ if(!empty($content)) {
         $id = $post['transmission_id'];
 
         if($type === "delivery") {
-            $dados['email_recebido'] = 1;
+            $dados['email_entregue'] = 1;
         } elseif($type === "open") {
             $dados['email_aberto'] = 1;
         } elseif($type === "click") {
@@ -22,8 +22,8 @@ if(!empty($content)) {
         if(isset($dados)) {
             $up = new \ConnCrud\Update();
             $up->exeUpdate("email_envio", $dados, "WHERE transmission_id = :id", "id={$id}");
-            if($up->getError())
-                $data['error'] = $up->getError();
+            if($up->getErro())
+                $data['error'] = $up->getErro();
             else
                 $data['data'] = "atualizado";
         }
