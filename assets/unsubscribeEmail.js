@@ -15,11 +15,11 @@ $(function() {
    $("#save").off("click").on("click", function () {
        let assuntos = [];
        if($("#promo").prop("checked"))
-           assuntos.push(2);
+           assuntos.push(1);
        if($("#artigos").prop("checked"))
-           assuntos.push(3);
+           assuntos.push(2);
        if($("#outros").prop("checked"))
-           assuntos.push(4);
+           assuntos.push(3);
 
        let frequencia = $(".frequencia").val();
 
