@@ -1,6 +1,6 @@
 <?php
 
-$dados['assuntos'] = filter_input(INPUT_POST, 'assuntos', FILTER_REQUIRE_ARRAY);
+$dados['assuntos'] = $_POST['assuntos'];
 $dados['frequencia'] = filter_input(INPUT_POST, 'frequencia', FILTER_VALIDATE_INT);
 $dados['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
