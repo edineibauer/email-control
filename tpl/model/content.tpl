@@ -149,8 +149,8 @@
                                                class="m_5372895143664279880mcnButtonBlock"
                                                style="min-width:100%;border-collapse:collapse">
                                             <tbody class="m_5372895143664279880mcnButtonBlockOuter">
-                                            <tr style="padding-top:0;padding-right:30px;padding-bottom:30px;padding-left:30px">
-                                                <td valign="top" align="center" class="m_5372895143664279880mcnButtonBlockInner" style="background: {$background}">
+                                            <tr style="padding-top:0;padding-bottom:30px;height: 90px;">
+                                                <td valign="top" align="center" class="m_5372895143664279880mcnButtonBlockInner" style="background-color: {$background}">
                                                     <table border="0" cellpadding="0" cellspacing="0" width="100%"
                                                            class="m_5372895143664279880mcnButtonContentContainer"
                                                            style="border-collapse:separate!important;border:1px solid rgba(0,0,0, 0.4);border-radius:2px;background-color:rgba(0,0,0, 0.2)">
@@ -158,11 +158,11 @@
                                                         <tr>
                                                             <td align="center" valign="middle"
                                                                 class="m_5372895143664279880mcnButtonContent"
-                                                                style="font-family:&quot;Open Sans&quot;,&quot;Helvetica Neue&quot;,Helvetica,Arial,sans-serif;font-size:14px;padding:15px">
+                                                                style="font-family:&quot;Open Sans&quot;,&quot;Helvetica Neue&quot;,Helvetica,Arial,sans-serif;font-size:14px;">
                                                                 {if isset($link)}
                                                                 <a title="{$btn}"
                                                                    href="{$link}"
-                                                                   style="font-weight:bold;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#ffffff;display:block"
+                                                                   style="font-weight:bold;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#ffffff;display:block;font-size:20px;text-transform: uppercase;padding: 20px"
                                                                    target="_blank"
                                                                    data-saferedirecturl="https://www.google.com/url?q={$link}">
                                                                     {$btn}
