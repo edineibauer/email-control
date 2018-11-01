@@ -144,7 +144,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    {if isset($btn)}
+                                    {if !empty($btn)}
                                         <table border="0" cellpadding="0" cellspacing="0" width="100%"
                                                class="m_5372895143664279880mcnButtonBlock"
                                                style="min-width:100%;border-collapse:collapse">
