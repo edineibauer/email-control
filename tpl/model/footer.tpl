@@ -1,11 +1,82 @@
-<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="{$themeBackground}" style="color:{$theme};padding: 20px 30px 20px 30px;">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="{$themeBackground}" style="color:{$theme};">
     <tr>
-        <td width="75%">
-            &reg; {$sitename}, {$date}<br/><br/>
-            <a href="{$home}unsubscribeEmail/{$destinatarioEmail}" target="_blank" style="color: #999999; text-decoration: none;font-size:11px">
-                remover inscrição
-            </a>
+        <td align="center" valign="top" id="m_5372895143664279880templateFooter"
+            style="background:rgba(0,0,0,0.4) none no-repeat center/cover;background-color:rgba(0,0,0,0.4);background-image:none;background-repeat:no-repeat;background-position:center;background-size:cover;border-top:0;border-bottom:0;padding-top:10px;padding-bottom:10px">
+
+            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+                   class="m_5372895143664279880templateContainer"
+                   style="border-collapse:collapse;max-width:600px!important">
+                <tbody>
+                <tr>
+                    <td valign="top" class="m_5372895143664279880footerContainer">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                               class="m_5372895143664279880mcnTextBlock"
+                               style="min-width:100%;border-collapse:collapse">
+                            <tbody class="m_5372895143664279880mcnTextBlockOuter">
+                            <tr>
+                                <td valign="top" class="m_5372895143664279880mcnTextBlockInner"
+                                    style="padding-top:9px">
+
+
+                                    <table align="left" border="0" cellpadding="0" cellspacing="0"
+                                           style="max-width:100%;min-width:100%;border-collapse:collapse"
+                                           width="100%"
+                                           class="m_5372895143664279880mcnTextContentContainer">
+                                        <tbody>
+                                        <tr>
+
+                                            <td valign="top" class="m_5372895143664279880mcnTextContent"
+                                                style="padding:0px 18px 9px;text-align:center;word-break:break-word;color:#96a6b7;font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;line-height:150%">
+
+                                                Caso não consiga visualizar este email,&nbsp;<a
+                                                        href="{$home}"
+                                                        style="color:#0099cc;font-weight:normal;text-decoration:underline"
+                                                        target="_blank"
+                                                        data-saferedirecturl="https://www.google.com/url?q={$home}">acesse
+                                                    o site</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                               class="m_5372895143664279880mcnDividerBlock"
+                               style="min-width:100%;border-collapse:collapse;table-layout:fixed!important">
+                            <tbody class="m_5372895143664279880mcnDividerBlockOuter">
+                            <tr>
+                                <td class="m_5372895143664279880mcnDividerBlockInner"
+                                    style="min-width:100%;padding:10px 18px">
+                                    <table class="m_5372895143664279880mcnDividerContent" border="0"
+                                           cellpadding="0" cellspacing="0" width="100%"
+                                           style="min-width:100%;border-top:2px solid {$themeBackground};border-collapse:collapse">
+                                        <tbody>
+                                        <tr>
+                                            <td style="padding-top: 10px;">
+                                                &reg; {$sitename}, {$date}<br/>
+                                                <a href="{$home}unsubscribeEmail/{$destinatarioEmail}" target="_blank" style="color: #999999; text-decoration: none;font-size:11px">
+                                                    remover inscrição
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </td>
+    </tr>
+    <tr>
 
         {*
         <td align="right">
