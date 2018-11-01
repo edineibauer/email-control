@@ -10,7 +10,7 @@
             <div class="row h-100">
                 <div class="col-12 my-auto">
                     <div class="masthead-content text-white py-5 py-md-0">
-                        <h2 class="mb-3"><b>DESCULPAS</b> {(!empty($nome)) ? $nome : ""}</h2>
+                        <h2 class="mb-3"><b style="text-transform:uppercase">DESCULPA {(!empty($nome)) ? $nome : ""}</b></h2>
                         <p class="mb-5">por enviar emails de forma não desejada, saiba que esse <strong>NÃO É</strong>
                             nosso objetivo!</p>
 
@@ -23,7 +23,8 @@
                                     <label>Conteúdo</label>
                                     <div class="col">
                                         <div class="custom-control custom-checkbox">
-                                            <input checked="checked" type="checkbox" class="custom-control-input" id="promo">
+                                            <input checked="checked" type="checkbox" class="custom-control-input"
+                                                   id="promo">
                                             <label class="custom-control-label text-white" style="cursor: pointer"
                                                    for="promo">Promoções</label>
                                         </div>
@@ -55,7 +56,8 @@
                                             <label class="custom-control-label" for="semanal" style="cursor: pointer">Semanal</label>
                                         </div>
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" checked="checked" id="mensal" value="4" name="frequencia"
+                                            <input type="radio" checked="checked" id="mensal" value="4"
+                                                   name="frequencia"
                                                    class="custom-control-input frequencia">
                                             <label class="custom-control-label" for="mensal" style="cursor: pointer">Mensal</label>
                                         </div>
@@ -76,20 +78,26 @@
     <div class="social-icons">
         <div class="container">
             <div class="row">
-                <h2 class="text-white">Caso queira Realmente sair, basta selecionar o Motivo</h2>
+                <h2 class="text-white">Quero Realmente sair, o motivo é porque...</h2>
             </div>
             <div class="row" style="font-size: 17px">
-                <div class="col-sm p-3 m-1 bg-success text-white shadow unsub" rel="3" style="cursor: pointer">
-                    Muitos emails
+                <div class="col bg-warning shadow p-0 m-1" style="width: 250px;">
+                    <div class="col-sm p-3 unsub" rel="3" style="cursor: pointer;background-color:rgba(0,0,0,0.05)">
+                        Envio de Muitos Emails
+                    </div>
                 </div>
-                <div class="col-sm p-3 m-1 bg-primary text-white shadow unsub" rel="2" style="cursor: pointer">
-                    Nunca desejei receber isso
+                <div class="col bg-warning shadow p-0 m-1" style="width: 250px;">
+                    <div class="col-sm p-3 unsub" rel="2" style="cursor: pointer;">
+                        Nunca Desejei Receber Isso
+                    </div>
                 </div>
-                <div class="col-sm p-3 m-1 bg-warning shadow unsub" rel="1" style="cursor: pointer">
-                    Conteúdo sem relevância
+                <div class="col bg-warning shadow p-0 m-1" style="width: 250px;">
+                    <div class="col-sm p-3 unsub" rel="1" style="cursor: pointer;background-color:rgba(255,255,255,0.1)">
+                        Conteúdo sem Relevância
+                    </div>
                 </div>
             </div>
-            <input type="hidden" id="email" value="{$email}" />
+            <input type="hidden" id="email" value="{$email}"/>
         </div>
     </div>
 {else}
