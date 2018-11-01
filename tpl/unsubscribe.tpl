@@ -99,8 +99,8 @@
             <div class="row h-100">
                 <div class="col-12 my-auto">
                     <div class="masthead-content text-white py-5 py-md-0">
-                        <h2 class="mb-3">Opa! Email inválido</h2>
-                        <p class="mb-5">este email não consta no nosso sistema</p>
+                        <h2 class="mb-3">Opss! Email inválido</h2>
+                        <p class="mb-5">este email já foi descadastrado!</p>
                     </div>
                 </div>
             </div>
