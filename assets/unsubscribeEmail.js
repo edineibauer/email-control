@@ -21,7 +21,7 @@ $(function() {
        if($("#outros").prop("checked"))
            assuntos.push(3);
 
-       let frequencia = $(".frequencia").val();
+       let frequencia = $('input[name=frequencia]:checked').val();
        let email = $("#email").val();
 
        post('email-control', 'email/preferences', {assuntos: assuntos, frequencia: frequencia, email: email}, function (g) {

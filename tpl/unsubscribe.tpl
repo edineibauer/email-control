@@ -1,6 +1,6 @@
 <div class="overlay"></div>
 <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-    <source src="../public/assets/video/bg.mp4" type="video/mp4">
+    <source src="{$home}{$vendor}email-control/assets/video/bg.mp4" type="video/mp4">
 </video>
 
 {if !empty($email)}
@@ -43,19 +43,19 @@
                                     <label>Frequência</label>
                                     <div class="col">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" value="2" name="frequencia"
+                                            <input type="radio" id="2semana" value="2" name="frequencia"
                                                    class="custom-control-input frequencia">
                                             <label class="custom-control-label" for="2semana" style="cursor: pointer">
                                                 2x Semana
                                             </label>
                                         </div>
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" value="3" name="frequencia"
+                                            <input type="radio" id="semanal" value="3" name="frequencia"
                                                    class="custom-control-input frequencia">
                                             <label class="custom-control-label" for="semanal" style="cursor: pointer">Semanal</label>
                                         </div>
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" value="4" name="frequencia"
+                                            <input type="radio" id="mensal" value="4" name="frequencia"
                                                    class="custom-control-input frequencia">
                                             <label class="custom-control-label" for="mensal" style="cursor: pointer">Mensal</label>
                                         </div>
