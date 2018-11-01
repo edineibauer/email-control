@@ -2,6 +2,7 @@
 
 if($dados['email_enviado'] == 0) {
 
+    $resultData["email_enviado"] = 1;
     $emailSend = new \EmailControl\Email();
     try {
         $emailSend->setDestinatarioNome($dados['nome_destinatario']);
@@ -23,16 +24,16 @@ if($dados['email_enviado'] == 0) {
         ]);
 
         $emailSend->enviar();
+
+        if($emailSend->getResult())
+            $resultData['transmission_id'] = $emailSend->getResult();
+
     } catch (Exception $e) {
         $emailSend->setError($e->getMessage());
     }
 
-    if (!$emailSend->getError()) {
-        //Email enviado com sucesso
-        $resultData = ["email_enviado" => 1];
-    } else {
-        $resultData = ["email_enviado" => 1, "email_error" => 1];
-    }
+    if ($emailSend->getError())
+        $resultData["email_error"] = 1;
 
     $up = new \ConnCrud\Update();
     $up->exeUpdate("email_envio", $resultData, "WHERE id = :id", "id={$dados['id']}");

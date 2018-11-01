@@ -9,6 +9,7 @@ if ($read->getResult()) {
 
     foreach ($read->getResult() as $email) {
 
+        $resultData["email_enviado"] = 1;
         $emailSend = new \EmailControl\Email();
         try {
             $emailSend->setDestinatarioNome($email['nome_destinatario']);
@@ -31,16 +32,15 @@ if ($read->getResult()) {
 
             $emailSend->enviar();
 
+            if($emailSend->getResult())
+                $resultData['transmission_id'] = $emailSend->getResult();
+
         } catch (Exception $e) {
             $emailSend->setError($e->getMessage());
         }
 
-        if (!$emailSend->getError()) {
-            //Email enviado com sucesso
-            $resultData = ["email_enviado" => 1];
-        } else {
-            $resultData = ["email_enviado" => 1, "email_error" => 1];
-        }
+        if ($emailSend->getError())
+            $resultData["email_error"] = 1;
 
         $up->exeUpdate("email_envio", $resultData, "WHERE id = :id", "id={$dados['id']}");
     }

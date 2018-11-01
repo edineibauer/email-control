@@ -32,6 +32,7 @@ class Email
     private $replyToNome;
 
     private $error;
+    private $result;
 
     public function __construct()
     {
@@ -191,6 +192,14 @@ class Email
     }
 
     /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
      * Envia Email
      */
     public function enviar()
@@ -225,9 +234,7 @@ class Email
     {
         try {
             $httpClient = new GuzzleAdapter(new Client());
-            $sparky = new SparkPost($httpClient, ['key' => EMAILKEY]);
-
-            $sparky->setOptions(['async' => false]);
+            $sparky = new SparkPost($httpClient, ['key' => EMAILKEY, 'async' => false]);
 
             $response = $sparky->transmissions->post([
                 'content' => [
@@ -240,7 +247,9 @@ class Email
                 'recipients' => $this->destinatarioEmail
             ]);
 
-            if($response->getStatusCode() !== 200)
+            if($response->getStatusCode() === 200)
+                $this->result = $response->getBody()['results']['id'];
+            else
                 $this->error = $response->getStatusCode();
 
         } catch (\Exception $e) {
