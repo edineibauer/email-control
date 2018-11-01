@@ -3,6 +3,8 @@ $content = file_get_contents('php://input');
 if(!empty($content)) {
     $contentArray = json_decode($content, true);
     if(!empty($contentArray[0]['msys']['message_event'])) {
+
+        $data['data'] = "recebido";
         $post = json_decode($content, true)[0]['msys']['message_event'];
         $type = $post['type'];
         $id = $post['transmission_id'];
@@ -20,6 +22,10 @@ if(!empty($content)) {
         if(isset($dados)) {
             $up = new \ConnCrud\Update();
             $up->exeUpdate("email_envio", $dados, "WHERE transmission_id = :id", "id={$id}");
+            if($up->getError())
+                $data['error'] = $up->getError();
+            else
+                $data['data'] = "atualizado";
         }
     }
 }

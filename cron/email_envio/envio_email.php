@@ -12,10 +12,13 @@ if ($read->getResult()) {
         $resultData["email_enviado"] = 1;
         $emailSend = new \EmailControl\Email();
         try {
-            $emailSend->setDestinatarioNome($email['nome_destinatario']);
+
             $emailSend->setDestinatarioEmail($email['email_destinatario']);
             $emailSend->setAssunto($email['assunto']);
             $emailSend->setMensagem($email['mensagem']);
+
+            if(!empty($dados['nome_destinatario']))
+                $emailSend->setDestinatarioNome($email['nome_destinatario']);
 
             if (!empty($email['template']))
                 $emailSend->setTemplate($email['template']);

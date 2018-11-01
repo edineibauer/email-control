@@ -5,10 +5,13 @@ if($dados['email_enviado'] == 0) {
     $resultData["email_enviado"] = 1;
     $emailSend = new \EmailControl\Email();
     try {
-        $emailSend->setDestinatarioNome($dados['nome_destinatario']);
+
         $emailSend->setDestinatarioEmail($dados['email_destinatario']);
         $emailSend->setAssunto($dados['assunto']);
         $emailSend->setMensagem($dados['mensagem']);
+
+        if(!empty($dados['nome_destinatario']))
+            $emailSend->setDestinatarioNome($email['nome_destinatario']);
 
         if (!empty($dados['template']))
             $emailSend->setTemplate($dados['template']);
