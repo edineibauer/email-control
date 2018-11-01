@@ -23,7 +23,7 @@
                                     <label>Conteúdo</label>
                                     <div class="col">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="promo">
+                                            <input checked="checked" type="checkbox" class="custom-control-input" id="promo">
                                             <label class="custom-control-label text-white" style="cursor: pointer"
                                                    for="promo">Promoções</label>
                                         </div>
@@ -55,7 +55,7 @@
                                             <label class="custom-control-label" for="semanal" style="cursor: pointer">Semanal</label>
                                         </div>
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="mensal" value="4" name="frequencia"
+                                            <input type="radio" checked="checked" id="mensal" value="4" name="frequencia"
                                                    class="custom-control-input frequencia">
                                             <label class="custom-control-label" for="mensal" style="cursor: pointer">Mensal</label>
                                         </div>
