@@ -40,6 +40,7 @@ class Email
             $this->remetenteEmail = EMAIL;
             $this->destinatarioNome = "";
             $this->variables = [];
+            $this->anexo = [];
             $this->assunto = "Contato " . (defined('SITENAME') ? SITENAME : "");
         }
     }
@@ -69,11 +70,11 @@ class Email
     }
 
     /**
-     * @param string $template
+     * @param int $template
      */
-    public function setTemplate(string $template)
+    public function setTemplate(int $template)
     {
-        $this->template = trim(strip_tags($template));
+        $this->template = $template;
     }
 
     /**
@@ -155,9 +156,30 @@ class Email
         $this->replyToNome = trim(strip_tags($replyToNome));
     }
 
-    public function setAnexo($file, $name)
+    /**
+     * Recebe string json com informações do(s) anexo(s)
+     * @param string $file
+     */
+    public function setAnexo(string $file)
     {
-        $this->anexo[$file] = $name;
+        $anexos = json_decode($file, true);
+        if(is_array($anexos)) {
+            foreach ($anexos as $anexo) {
+                $this->anexo[] = [
+                    "name" => $anexo['name'],
+                    "type" => $anexo['type'],
+                    "data" => base64_encode(file_get_contents(PATH_HOME . $anexo['url']))
+                ];
+            }
+        }
+    }
+
+    /**
+     * @param mixed $error
+     */
+    public function setError($error)
+    {
+        $this->error = $error;
     }
 
     /**
@@ -207,14 +229,19 @@ class Email
 
             $sparky->setOptions(['async' => false]);
 
-            $sparky->transmissions->post([
+            $response = $sparky->transmissions->post([
                 'content' => [
                     'from' => ['name' => $this->remetenteNome, 'email' => $this->remetenteEmail],
                     'subject' => $this->assunto,
-                    'html' => $this->html
+                    'html' => $this->html,
+                    'text' => trim(strip_tags($this->mensagem)),
+                    'attachments' => $this->anexo,
                 ],
                 'recipients' => $this->destinatarioEmail
             ]);
+
+            if($response->getStatusCode() !== 200)
+                $this->error = $response->getStatusCode();
 
         } catch (\Exception $e) {
             $this->error = 'Erro Inexperado ao enviar';
