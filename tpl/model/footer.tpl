@@ -28,7 +28,7 @@
                                             <td valign="top" class="m_5372895143664279880mcnTextContent"
                                                 style="padding:0px 18px 9px;text-align:center;word-break:break-word;color:#96a6b7;font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;line-height:150%">
                                                 Caso não consiga visualizar este email,&nbsp;
-                                                <a href="{$home}/abrirEmail/{$id}" style="color:#0099cc;font-weight:normal;text-decoration:underline;" target="_blank"
+                                                <a href="{$home}abrirEmail/{$id}" style="color:#0099cc;font-weight:normal;text-decoration:underline;" target="_blank"
                                                         data-saferedirecturl="https://www.google.com/url?q={$home}">
                                                     visualize no navegador
                                                 </a>
