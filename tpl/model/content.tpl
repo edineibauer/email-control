@@ -60,7 +60,7 @@
                 </tr>
                 <tr>
                     <td align="center" valign="top" id="m_5372895143664279880templateHeader"
-                        style="color:{$theme};background:rgba(0,0,0,0.4){if isset($background)} url(&quot;{$background.url}&quot;) no-repeat center/cover{/if};background-color:rgba(0,0,0,0.4);{if isset($background)}background-image:url({$background.url});background-repeat:no-repeat;background-position:center;background-size:cover;{/if}border-top:0;border-bottom:0;padding-top:80px;padding-bottom:40px">
+                        style="color:{$theme};background:rgba(0,0,0,0.4){if isset($background)} url(&quot;{$background}&quot;) no-repeat center/cover{/if};background-color:rgba(0,0,0,0.4);{if isset($background)}background-image:url({$background});background-repeat:no-repeat;background-position:center;background-size:cover;{/if}border-top:0;border-bottom:0;padding-top:80px;padding-bottom:40px">
 
                         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
                                class="m_5372895143664279880templateContainer"
@@ -90,7 +90,7 @@
                                                                    title="" target="_blank"
                                                                    data-saferedirecturl="https://www.google.com/url?q={(isset($link))? $link : $home}">
                                                                     <img align="center" alt=""
-                                                                         src="{$image.url}"
+                                                                         src="{$image}"
                                                                          width="400"
                                                                          style="max-width:400px;padding-bottom:0;display:inline!important;vertical-align:bottom;border:0;height:auto;outline:none;text-decoration:none"
                                                                          class="m_5372895143664279880mcnImage CToWUd">

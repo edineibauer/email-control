@@ -24,8 +24,8 @@ if ($read->getResult()) {
                 $emailSend->setAnexo($dados['anexos']);
 
             $emailSend->setVariables([
-                'image' => (!empty($email['imagem_capa']) ? json_decode($email['imagem_capa'], true)[0] : ""),
-                'background' => (!empty($email['background']) ? json_decode($email['background'], true)[0] : ""),
+                'image' => (!empty($email['imagem_capa']) ? json_decode($email['imagem_capa'], true)[0]['url'] : ""),
+                'background' => (!empty($email['background']) ? json_decode($email['background'], true)[0]['url'] : ""),
                 'btn' => !empty($email['texto_do_botao']) ? $email['texto_do_botao'] : "",
                 'link' => !empty($email['link_do_botao']) ? $email['link_do_botao'] : "",
             ]);
