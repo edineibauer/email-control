@@ -22,8 +22,9 @@ $(function() {
            assuntos.push(3);
 
        let frequencia = $(".frequencia").val();
+       let email = $("#email").val();
 
-       post('email-control', 'email/preferences', {assuntos: assuntos, frequencia: frequencia}, function (g) {
+       post('email-control', 'email/preferences', {assuntos: assuntos, frequencia: frequencia, email: email}, function (g) {
            if(g) {
                toast("Email Removido", 3000, "toast-success");
                setTimeout(function () {
