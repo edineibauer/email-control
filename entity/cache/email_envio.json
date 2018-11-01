@@ -462,8 +462,8 @@
   "15": {
     "format": "boolean",
     "type": "tinyint",
-    "nome": "Email Recebido",
-    "column": "email_recebido",
+    "nome": "Email Entregue",
+    "column": "email_entregue",
     "size": "1",
     "key": "",
     "group": "",

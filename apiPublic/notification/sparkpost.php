@@ -6,7 +6,7 @@ $id = $post['transmission_id'];
 $up = new \ConnCrud\Update();
 
 if($type === "delivery") {
-    $dados['email_recebido'] = 1;
+    $dados['email_entregue'] = 1;
 } elseif($type === "open") {
     $dados['email_aberto'] = 1;
 } elseif($type === "click") {
