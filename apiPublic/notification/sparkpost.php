@@ -1,31 +1,30 @@
 <?php
+
 $content = file_get_contents('php://input');
 if(!empty($content)) {
     $contentArray = json_decode($content, true);
-    if(!empty($contentArray[0]['msys']['message_event'])) {
+    if(!empty($contentArray)) {
+        $dados = [];
+        $conv = [
+            "delivery" => "email_recebido",
+            "open" => "email_aberto",
+            "click" => "email_clicado",
+            "spam_complaint" => "email_spam",
+        ];
 
-        $data['data'] = "recebido";
-        $post = json_decode($content, true)[0]['msys']['message_event'];
-        $type = $post['type'];
-        $id = $post['transmission_id'];
+        foreach ($contentArray as $message) {
+            if (!empty($message['msys']['message_event'])) {
+                $post = $message['msys']['message_event'];
 
-        if($type === "delivery") {
-            $dados['email_entregue'] = 1;
-        } elseif($type === "open") {
-            $dados['email_aberto'] = 1;
-        } elseif($type === "click") {
-            $dados['email_clicado'] = 1;
-        } elseif($type === "spam_complaint") {
-            $dados['email_spam'] = 1;
+                if(in_array($post['type'], array_keys($conv)))
+                    $dados[$post['transmission_id']][$conv[$post['type']]] = 1;
+            }
         }
 
-        if(isset($dados)) {
+        if (!empty($dados)) {
             $up = new \ConnCrud\Update();
-            $up->exeUpdate("email_envio", $dados, "WHERE transmission_id = :id", "id={$id}");
-            if($up->getErro())
-                $data['error'] = $up->getErro();
-            else
-                $data['data'] = "atualizado";
+            foreach ($dados as $id => $dado)
+                $up->exeUpdate("email_envio", $dado, "WHERE transmission_id = :id", "id={$id}");
         }
     }
 }
