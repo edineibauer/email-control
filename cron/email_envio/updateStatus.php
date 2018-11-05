@@ -11,15 +11,23 @@ $sparky = new SparkPost($httpClient, ["key" => EMAILKEY]);
 $read = new \ConnCrud\Read();
 $up = new \ConnCrud\Update();
 
-$read->exeRead("email_envio", "WHERE email_entregue = 1 && email_aberto = 0 && email_error = 0");
+$read->exeRead("email_envio", "WHERE email_clicado = 0 && email_error = 0");
 if ($read->getResult()) {
     $ids = [];
     foreach ($read->getResult() as $email)
         $ids[] = $email['transmission_id'];
 
+    $conv = [
+        "delivery" => "email_entregue",
+        "open" => "email_aberto",
+        "click" => "email_clicado",
+        "spam_complaint" => "email_spam",
+    ];
+
     if (!empty($ids)) {
         $promise = $sparky->request('GET', 'message-events', [
-            'transmission_ids' => $ids
+            'transmission_ids' => $ids,
+            'events' => array_keys($conv)
         ]);
         try {
             $response = $promise->wait();
@@ -27,14 +35,8 @@ if ($read->getResult()) {
                 $response = $response->getBody()['results'];
                 $dados = [];
 
-                foreach ($response as $item) {
-                    if ($item['type'] === "open")
-                        $dados[$item['transmission_id']]['email_aberto'] = 1;
-                    elseif ($item['type'] === "click")
-                        $dados[$item['transmission_id']]['email_clicado'] = 1;
-                    elseif ($item['type'] === "spam_complaint")
-                        $dados[$item['transmission_id']]['email_spam'] = 1;
-                }
+                foreach ($response as $item)
+                    $dados[$item['transmission_id']][$conv[$item['type']]] = 1;
 
                 if (!empty($dados)){
                     foreach ($dados as $id => $dado)
