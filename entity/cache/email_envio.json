@@ -45,7 +45,7 @@
     "size": "127",
     "key": "",
     "group": "",
-    "unique": "true",
+    "unique": "false",
     "default": "false",
     "update": "true",
     "relation": "",
