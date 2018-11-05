@@ -4,6 +4,7 @@ $dados['razao'] = filter_input(INPUT_POST, 'motivo', FILTER_VALIDATE_INT);
 $dados['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
 if(!empty($dados['email']) && !empty($dados['razao'])) {
+   /*
     $read = new \ConnCrud\Read();
     $read->exeRead("email_blacklist", "WHERE email = :em", "em={$dados['email']}");
     if($read->getResult()) {
@@ -14,5 +15,6 @@ if(!empty($dados['email']) && !empty($dados['razao'])) {
     $d = new \EntityForm\Dicionario("email_blacklist");
     $d->setData($dados);
     $d->save();
+    */
     $data['data'] = 'ok';
 }

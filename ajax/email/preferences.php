@@ -5,7 +5,7 @@ $dados['frequencia'] = filter_input(INPUT_POST, 'frequencia', FILTER_VALIDATE_IN
 $dados['email'] = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
 if(!empty($dados['email']) && !empty($dados['frequencia']) && !empty($dados['assuntos'])) {
-
+/*
     $read = new \ConnCrud\Read();
     $read->exeRead("email_list", "WHERE email = :em", "em={$dados['email']}");
     if($read->getResult())
@@ -14,5 +14,6 @@ if(!empty($dados['email']) && !empty($dados['frequencia']) && !empty($dados['ass
     $d = new \EntityForm\Dicionario("email_list");
     $d->setData($dados);
     $d->save();
+    */
     $data['data'] = 'ok';
 }
