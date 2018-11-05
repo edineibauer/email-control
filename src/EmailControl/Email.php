@@ -59,7 +59,7 @@ class Email
      */
     public function setMensagem(string $mensagem)
     {
-        $this->mensagem = trim(strip_tags($mensagem));
+        $this->mensagem = $mensagem;
     }
 
     /**
