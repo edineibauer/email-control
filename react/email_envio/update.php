@@ -2,7 +2,13 @@
 
 if($dados['email_enviado'] == 0) {
 
-    $resultData["email_enviado"] = 1;
+    $resultData = [
+        "email_enviado" => 1,
+        "email_entregue" => 0,
+        "email_aberto" => 0,
+        "email_clicado" => 0,
+        "email_error" => 0
+    ];
     $emailSend = new \EmailControl\Email();
     try {
 
