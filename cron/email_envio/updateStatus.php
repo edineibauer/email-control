@@ -11,7 +11,7 @@ $sparky = new SparkPost($httpClient, ["key" => EMAILKEY]);
 $read = new \ConnCrud\Read();
 $up = new \ConnCrud\Update();
 
-$read->exeRead("email_envio", "WHERE email_clicado = 0 && email_error = 0");
+$read->exeRead("email_envio", "WHERE (email_clicado = 0 || email_clicado IS NULL) && (email_error = 0 || email_error IS NULL)");
 if ($read->getResult()) {
     $ids = [];
     foreach ($read->getResult() as $email)

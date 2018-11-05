@@ -1,15 +1,14 @@
 <?php
 
 $read = new \ConnCrud\Read();
-$read->exeRead("email_envio", "WHERE email_enviado != 1 && data_de_envio <= NOW() ORDER BY data_de_envio ASC");
+$read->exeRead("email_envio", "WHERE (email_enviado = 0 || email_enviado IS NULL) && email_error IS NULL && data_de_envio <= NOW() ORDER BY data_de_envio ASC");
 if ($read->getResult()) {
 
-    // Para cada email disponível para ser enviado
     $up = new \ConnCrud\Update();
 
+    // Para cada email disponível para ser enviado
     foreach ($read->getResult() as $email) {
 
-        $resultData["email_enviado"] = 1;
         $emailSend = new \EmailControl\Email();
         try {
 
@@ -23,8 +22,8 @@ if ($read->getResult()) {
             if (!empty($email['template']))
                 $emailSend->setTemplate($email['template']);
 
-            if(!empty($dados['anexos']))
-                $emailSend->setAnexo($dados['anexos']);
+            if(!empty($email['anexos']))
+                $emailSend->setAnexo($email['anexos']);
 
             $emailSend->setVariables([
                 'id' => $email['id'],
@@ -45,7 +44,9 @@ if ($read->getResult()) {
 
         if ($emailSend->getError())
             $resultData["email_error"] = 1;
+        else
+            $resultData["email_enviado"] = 1;
 
-        $up->exeUpdate("email_envio", $resultData, "WHERE id = :id", "id={$dados['id']}");
+        $up->exeUpdate("email_envio", $resultData, "WHERE id = :id", "id={$email['id']}");
     }
 }
