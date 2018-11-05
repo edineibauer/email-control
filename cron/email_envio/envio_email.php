@@ -1,7 +1,7 @@
 <?php
 
 $read = new \ConnCrud\Read();
-$read->exeRead("email_envio", "WHERE email_enviado = 0 && data_de_envio <= NOW() ORDER BY data_de_envio ASC");
+$read->exeRead("email_envio", "WHERE email_enviado != 1 && data_de_envio <= NOW() ORDER BY data_de_envio ASC");
 if ($read->getResult()) {
 
     // Para cada email disponível para ser enviado
