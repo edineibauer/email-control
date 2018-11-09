@@ -287,7 +287,7 @@ class Email
         }
 
         if (!isset($template)) {
-            $dirTemplate = PATH_HOME . VENDOR . "email-control/tpl/model";
+            $dirTemplate = PATH_HOME . VENDOR . "email-control/public/tpl/model";
             $template = "content.tpl";
         }
 
@@ -333,7 +333,7 @@ class Email
     {
         try {
             $smart = new \Smarty();
-            $smart->setTemplateDir(PATH_HOME . VENDOR . "email-control/tpl/model");
+            $smart->setTemplateDir(PATH_HOME . VENDOR . "email-control/public/tpl/model");
 
             foreach ($this->variables as $name => $value)
                 $smart->assign($name, $value);

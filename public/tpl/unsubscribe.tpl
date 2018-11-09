@@ -1,6 +1,6 @@
 <div class="overlay"></div>
 <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-    <source src="{$home}{$vendor}email-control/assets/video/bg.mp4" type="video/mp4">
+    <source src="{$home}{$vendor}email-control/public/assets/video/bg.mp4" type="video/mp4">
 </video>
 
 {if !empty($email)}
