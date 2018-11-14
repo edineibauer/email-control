@@ -304,7 +304,7 @@
       "validate": ""
     },
     "form": {
-      "input": "selecao",
+      "input": "list",
       "cols": "12",
       "colm": "12",
       "coll": "",
