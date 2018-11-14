@@ -286,12 +286,12 @@
     "indice": "9"
   },
   "10": {
-    "format": "selecao",
+    "format": "list",
     "type": "int",
     "nome": "Template",
     "column": "template",
     "size": "false",
-    "key": "selecao",
+    "key": "list",
     "group": "relation",
     "unique": "false",
     "default": "",
