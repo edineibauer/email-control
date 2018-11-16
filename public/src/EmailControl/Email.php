@@ -389,8 +389,8 @@ class Email
 
     private function getColorTheme()
     {
-        if (file_exists(PATH_HOME . "assetsPublic/theme.min.css")) {
-            $theme = file_get_contents(PATH_HOME . "assetsPublic/theme.min.css");
+        if (file_exists(PATH_HOME . "public/assets/theme.min.css")) {
+            $theme = file_get_contents(PATH_HOME . "public/assets/theme.min.css");
             if (preg_match('/\.theme{/i', $theme)) {
                 $theme = explode('.theme{', $theme)[1];
                 $color = trim(explode('!important', explode('color:', $theme)[1])[0]);
