@@ -222,7 +222,7 @@
     "update": "true",
     "relation": "",
     "allow": {
-      "regex": "\/^https?:\\\/\\\/(www\\.)?\\w{2,}\\.\\w{2,}\/",
+      "regex": "\/^https?:\\\/\\\//",
       "values": "",
       "names": "",
       "validate": ""
